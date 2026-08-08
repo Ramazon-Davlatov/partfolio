@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ramazon Davlatov — Frontend Developer</title>
+    <meta name="description" content="Ramazon Davlatov is a frontend developer building fast, animated React interfaces with Tailwind CSS." />
+    <meta property="og:title" content="Ramazon Davlatov — Frontend Developer" />
+    <meta property="og:description" content="Frontend developer building fast, animated React interfaces." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="theme-color" content="#060810" />
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem('portfolio-theme')
+          var theme = saved === 'light' || saved === 'dark'
+            ? saved
+            : (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark')
+          document.documentElement.dataset.theme = theme
+        } catch (e) {}
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

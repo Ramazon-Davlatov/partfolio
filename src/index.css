@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #060810;
+  --color-surface: #0b0f1c;
+  --color-surface-2: #10152a;
+  --color-line: #1c2338;
+  --color-text: #e9ecf5;
+  --color-muted: #8991a8;
+  --color-green: #4dff9e;
+  --color-blue: #5b8cff;
+  --color-purple: #a76bff;
+
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+:root[data-theme='light'] {
+  --color-bg: #f6f7fb;
+  --color-surface: #ffffff;
+  --color-surface-2: #edf0f8;
+  --color-line: #dde1ee;
+  --color-text: #0e1220;
+  --color-muted: #5b6178;
+  --color-green: #14b876;
+  --color-blue: #3f6fe0;
+  --color-purple: #8a4fe0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+::selection {
+  background: var(--color-green);
+  color: #04070d;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-line);
+  border-radius: 30px;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+.glass {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.015));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+:root[data-theme='light'] .glass {
+  background: linear-gradient(180deg, rgba(14, 18, 32, 0.045), rgba(14, 18, 32, 0.015));
+  border: 1px solid rgba(14, 18, 32, 0.09);
+  box-shadow: 0 1px 24px rgba(14, 18, 32, 0.06);
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, var(--color-green), var(--color-blue));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.glow-green {
+  box-shadow: 0 0 0 1px rgba(77, 255, 158, 0.25), 0 0 40px rgba(77, 255, 158, 0.15);
+}
+
+.noise::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@keyframes aurora-spin {
+  0% { transform: rotate(0deg) scale(1.2); }
+  100% { transform: rotate(360deg) scale(1.2); }
+}
+.animate-aurora {
+  animation: aurora-spin 60s linear infinite;
+}
+
+@keyframes drift-a {
+  0%, 100% { margin-top: 0px; margin-left: 0px; }
+  50% { margin-top: 30px; margin-left: 20px; }
+}
+@keyframes drift-b {
+  0%, 100% { margin-top: 0px; margin-left: 0px; }
+  50% { margin-top: -25px; margin-left: -30px; }
+}
+@keyframes drift-c {
+  0%, 100% { margin-top: 0px; margin-left: 0px; }
+  50% { margin-top: 20px; margin-left: -20px; }
+}
+.animate-drift-a { animation: drift-a 14s ease-in-out infinite; }
+.animate-drift-b { animation: drift-b 18s ease-in-out infinite; }
+.animate-drift-c { animation: drift-c 16s ease-in-out infinite; }
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.1; transform: translateY(0); }
+  50% { opacity: 0.9; transform: translateY(-14px); }
+}
+.animate-twinkle {
+  animation: twinkle 8s ease-in-out infinite;
+}
+
+@keyframes orbit-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-orbit {
+  animation: orbit-spin 32s linear infinite;
+}
+.animate-orbit-reverse {
+  animation: orbit-spin 46s linear infinite reverse;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-aurora, .animate-drift-a, .animate-drift-b, .animate-drift-c, .animate-twinkle, .animate-orbit, .animate-orbit-reverse {
+    animation: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
