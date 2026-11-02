@@ -1,10 +1,9 @@
-import { useState } from 'react'
+import { MotionConfig } from 'framer-motion'
 import { LanguageProvider } from './context/LanguageContext'
 import { ThemeProvider } from './context/ThemeContext'
-import Loader from './components/Loader'
-import AmbientBackground from './components/AmbientBackground'
-import FloatingWords from './components/FloatingWords'
 import Navbar from './components/Navbar'
+import Marquee from './components/Marquee'
+import { Cursor, ScrollProgress, useSpotlight } from './components/Effects'
 import Hero from './sections/Hero'
 import About from './sections/About'
 import Skills from './sections/Skills'
@@ -15,26 +14,29 @@ import Contact from './sections/Contact'
 import Footer from './sections/Footer'
 
 export default function App() {
-  const [loading, setLoading] = useState(true)
+  useSpotlight()
 
   return (
-    <ThemeProvider>
-    <LanguageProvider>
-      {loading && <Loader onDone={() => setLoading(false)} />}
-      <AmbientBackground />
-      <FloatingWords />
-      <Navbar />
-      <main>
-        <Hero />
-        <About />
-        <Skills />
-        <Services />
-        <Projects />
-        <AISection />
-        <Contact />
-      </main>
-      <Footer />
-    </LanguageProvider>
-    </ThemeProvider>
+    <MotionConfig reducedMotion="user">
+      <ThemeProvider>
+        <LanguageProvider>
+          <div className="backdrop" aria-hidden="true" />
+          <ScrollProgress />
+          <Cursor />
+          <Navbar />
+          <main>
+            <Hero />
+            <Marquee />
+            <About />
+            <Skills />
+            <Services />
+            <Projects />
+            <AISection />
+            <Contact />
+          </main>
+          <Footer />
+        </LanguageProvider>
+      </ThemeProvider>
+    </MotionConfig>
   )
 }

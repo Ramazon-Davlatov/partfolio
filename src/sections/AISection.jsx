@@ -1,76 +1,148 @@
 import { motion } from 'framer-motion'
+import { ArrowUpRight } from 'lucide-react'
+import { SiClaude, SiGooglegemini, SiDeepseek, SiX, SiGithubcopilot } from 'react-icons/si'
+import { RiOpenaiFill } from 'react-icons/ri'
 import { useLanguage } from '../context/LanguageContext'
+import SectionHead from '../components/SectionHead'
+import { LINKS } from '../links'
+import { Reveal, EASE } from '../components/Motion'
 
-const qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=220x220&bgcolor=060810&color=4dff9e&data=' + encodeURIComponent('https://t.me/MrDavlatovdev')
+const QR_URL =
+  'https://api.qrserver.com/v1/create-qr-code/?size=360x360&margin=0&bgcolor=ffffff&color=0a0f2e&data=' +
+  encodeURIComponent(LINKS.telegram)
+
+// Brand marks, keyed by tool name in translations.
+const BRAND = {
+  Claude: { icon: SiClaude, color: '#d97757' },
+  ChatGPT: { icon: RiOpenaiFill, color: 'var(--color-text)' },
+  Gemini: { icon: SiGooglegemini, color: '#6f8cff' },
+  DeepSeek: { icon: SiDeepseek, color: '#4d6bfe' },
+  Grok: { icon: SiX, color: 'var(--color-text)' },
+  Copilot: { icon: SiGithubcopilot, color: '#a78bfa' },
+}
+
+function Mark({ name, size = 'md' }) {
+  const b = BRAND[name]
+  if (!b) return null
+  const Icon = b.icon
+  return (
+    <span
+      className={`grid shrink-0 place-items-center rounded-2xl border border-line bg-bg/60 ${
+        size === 'lg' ? 'h-16 w-16 text-3xl' : 'h-11 w-11 text-xl'
+      }`}
+      style={{ color: b.color }}
+      aria-hidden="true"
+    >
+      <Icon />
+    </span>
+  )
+}
 
 export default function AISection() {
   const { t } = useLanguage()
+  const [main, ...rest] = t.ai.tools
 
   return (
-    <section id="ai" className="relative px-6 py-28 md:px-12">
+    <section id="ai" className="px-5 py-24 md:px-10 md:py-32">
       <div className="mx-auto max-w-6xl">
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="font-mono text-sm text-green"
-        >
-          {t.ai.eyebrow}
-        </motion.p>
-        <motion.h2
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mt-4 font-display text-3xl font-semibold md:text-4xl"
-        >
-          {t.ai.title}
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mt-4 max-w-xl text-muted"
-        >
-          {t.ai.desc}
-        </motion.p>
+        <SectionHead title={t.ai.title} />
+        <Reveal as="p" className="mt-6 max-w-2xl text-lg text-muted">{t.ai.desc}</Reveal>
 
-        <div className="mt-12 grid gap-10 md:grid-cols-[1.6fr_1fr]">
-          <div className="grid gap-4 sm:grid-cols-2">
-            {t.ai.tools.map((tool, i) => (
-              <motion.div
-                key={tool.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: (i % 4) * 0.08 }}
-                className="glass rounded-[22px] p-5"
-              >
-                <div className="flex items-baseline justify-between">
-                  <h3 className="font-display text-base font-medium">{tool.name}</h3>
-                  <span className="font-mono text-[10px] text-muted">{tool.by}</span>
-                </div>
-                <p className="mt-2 text-xs text-muted">{tool.text}</p>
-              </motion.div>
-            ))}
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
+        <div className="mt-14 grid gap-4 lg:grid-cols-3">
+          {/* Featured: Claude + how I work with AI */}
+          <motion.article
+            initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="glass flex flex-col items-center justify-center gap-4 rounded-[30px] p-8 text-center"
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.9, ease: EASE }}
+            className="panel relative overflow-hidden rounded-[32px] p-7 md:p-10 lg:col-span-2"
           >
-            <p className="font-mono text-xs text-muted">{t.ai.scan}</p>
-            <img
-              src={qrUrl}
-              alt="QR code linking to Ramazon's Telegram profile"
-              className="h-40 w-40 rounded-2xl border border-line"
-              loading="lazy"
+            <div
+              className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full opacity-25 blur-3xl"
+              style={{ background: '#d97757' }}
+              aria-hidden="true"
             />
-            <p className="text-sm text-muted">@MrDavlatovdev</p>
-          </motion.div>
+            <div className="relative flex flex-wrap items-start gap-5">
+              <motion.div
+                animate={{ y: [0, -6, 0], rotate: [0, 4, 0] }}
+                transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+              >
+                <Mark name={main.name} size="lg" />
+              </motion.div>
+              <div className="min-w-0 flex-1">
+                <span className="inline-flex rounded-full bg-saffron/15 px-3 py-1 text-xs font-semibold text-saffron">
+                  {t.ai.featured}
+                </span>
+                <h3 className="mt-2 text-3xl font-bold tracking-tight">
+                  {main.name} <span className="text-lg font-medium text-muted">{main.by}</span>
+                </h3>
+                <p className="mt-2 max-w-md text-muted">{main.text}</p>
+              </div>
+            </div>
+
+            <div className="relative mt-10 border-t border-line pt-7">
+              <h4 className="text-sm font-semibold text-muted">{t.ai.flowTitle}</h4>
+              <ol className="mt-5 grid gap-5 sm:grid-cols-3">
+                {t.ai.flow.map((step, i) => (
+                  <li key={step.title} className="relative">
+                    <div className="flex items-center gap-3">
+                      <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-text font-display text-sm font-bold text-bg">
+                        {i + 1}
+                      </span>
+                      {i < t.ai.flow.length - 1 && (
+                        <span className="hidden h-px flex-1 bg-gradient-to-r from-line-strong to-transparent sm:block" aria-hidden="true" />
+                      )}
+                    </div>
+                    <p className="mt-3 font-display font-semibold tracking-tight">{step.title}</p>
+                    <p className="mt-1 text-sm text-muted">{step.text}</p>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </motion.article>
+
+          {/* QR */}
+          <motion.a
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.9, delay: 0.15, ease: EASE }}
+            href={LINKS.telegram}
+            target="_blank"
+            rel="noreferrer"
+            className="group relative flex flex-col justify-between overflow-hidden rounded-[32px] bg-lapis p-7 text-white md:p-8"
+          >
+            <div className="flex items-start justify-between gap-4">
+              <p className="max-w-[12rem] font-display text-lg font-semibold leading-snug">{t.ai.scan}</p>
+              <ArrowUpRight className="shrink-0 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
+            </div>
+            <div className="mt-8 self-center rounded-3xl bg-white p-4 shadow-2xl transition-transform duration-500 group-hover:rotate-[-3deg] group-hover:scale-[1.04]">
+              <img src={QR_URL} alt="" width="176" height="176" className="h-44 w-44" loading="lazy" />
+            </div>
+            <p className="mt-6 text-center font-semibold">{LINKS.telegramHandle}</p>
+          </motion.a>
         </div>
+
+        {/* The rest of the toolbox */}
+        <ul className="mt-4 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-5">
+          {rest.map((tool, i) => (
+            <motion.li
+              key={tool.name}
+              initial={{ opacity: 0, y: 40, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.7, delay: i * 0.08, ease: EASE }}
+              className="panel group flex flex-col rounded-[28px] p-5 last:col-span-2 hover:border-line-strong sm:p-6 lg:last:col-span-1"
+            >
+              <span className="inline-block transition-transform duration-500 group-hover:-translate-y-1 group-hover:rotate-[-8deg] group-hover:scale-110">
+                <Mark name={tool.name} />
+              </span>
+              <h3 className="mt-5 font-display text-lg font-semibold tracking-tight">{tool.name}</h3>
+              <p className="text-xs font-medium text-muted">{tool.by}</p>
+              <p className="mt-3 text-sm text-muted">{tool.text}</p>
+            </motion.li>
+          ))}
+        </ul>
       </div>
     </section>
   )

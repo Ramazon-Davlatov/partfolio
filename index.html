@@ -1,16 +1,91 @@
 <!doctype html>
-<html lang="en">
+<html lang="uz">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Ramazon Davlatov — Frontend Developer</title>
-    <meta name="description" content="Ramazon Davlatov is a frontend developer building fast, animated React interfaces with Tailwind CSS." />
-    <meta property="og:title" content="Ramazon Davlatov — Frontend Developer" />
-    <meta property="og:description" content="Frontend developer building fast, animated React interfaces." />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary" />
-    <meta name="theme-color" content="#060810" />
+    <title>Ramazon Davlatov — Frontend dasturchi | React va Tailwind</title>
+    <meta name="description" content="Ramazon Davlatov (shavkatovichdev) — O'zbekistonlik frontend dasturchi. React va Tailwind CSS'da tez, zamonaviy va moslashuvchan saytlar, landing sahifalar va portfoliolar yarataman." />
+    <meta name="author" content="Ramazon Davlatov" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+    <link rel="canonical" href="https://www.shavkatovichdev.uz/" />
+
+    <!-- Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
+    <link rel="apple-touch-icon" href="/icon-512.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#0a0f2e" />
+
+    <!-- Open Graph (Telegram, Facebook, LinkedIn previews) -->
+    <meta property="og:type" content="profile" />
+    <meta property="og:site_name" content="Ramazon Davlatov" />
+    <meta property="og:title" content="Ramazon Davlatov — Frontend dasturchi" />
+    <meta property="og:description" content="React va Tailwind'da tez, zamonaviy va pixel-aniq saytlar yarataman. Loyihalarim va aloqa ma'lumotlari." />
+    <meta property="og:url" content="https://www.shavkatovichdev.uz/" />
+    <meta property="og:image" content="https://www.shavkatovichdev.uz/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Ramazon Davlatov — Frontend dasturchi" />
+    <meta property="og:locale" content="uz_UZ" />
+    <meta property="og:locale:alternate" content="ru_RU" />
+    <meta property="profile:first_name" content="Ramazon" />
+    <meta property="profile:last_name" content="Davlatov" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Ramazon Davlatov — Frontend dasturchi" />
+    <meta name="twitter:description" content="React va Tailwind'da tez, zamonaviy va pixel-aniq saytlar yarataman." />
+    <meta name="twitter:image" content="https://www.shavkatovichdev.uz/og-image.png" />
+
+    <!-- Structured data: tells Google who this site is about -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://www.shavkatovichdev.uz/#website",
+            "url": "https://www.shavkatovichdev.uz/",
+            "name": "Ramazon Davlatov",
+            "alternateName": ["shavkatovichdev", "Ramazon Davlatov portfolio"],
+            "inLanguage": ["uz", "ru"],
+            "publisher": { "@id": "https://www.shavkatovichdev.uz/#person" }
+          },
+          {
+            "@type": "ProfilePage",
+            "@id": "https://www.shavkatovichdev.uz/#profile",
+            "url": "https://www.shavkatovichdev.uz/",
+            "name": "Ramazon Davlatov — Frontend dasturchi",
+            "isPartOf": { "@id": "https://www.shavkatovichdev.uz/#website" },
+            "mainEntity": { "@id": "https://www.shavkatovichdev.uz/#person" }
+          },
+          {
+            "@type": "Person",
+            "@id": "https://www.shavkatovichdev.uz/#person",
+            "name": "Ramazon Davlatov",
+            "alternateName": "shavkatovichdev",
+            "url": "https://www.shavkatovichdev.uz/",
+            "image": "https://www.shavkatovichdev.uz/icon-512.png",
+            "jobTitle": "Frontend Developer",
+            "description": "Frontend dasturchi: React, JavaScript va Tailwind CSS'da zamonaviy saytlar yaratadi.",
+            "nationality": { "@type": "Country", "name": "Uzbekistan" },
+            "alumniOf": { "@type": "EducationalOrganization", "name": "MARS IT SCHOOL" },
+            "knowsAbout": ["React", "JavaScript", "HTML", "CSS", "Tailwind CSS", "Framer Motion", "Responsive web design", "Frontend development"],
+            "knowsLanguage": ["uz", "ru"],
+            "sameAs": [
+              "https://github.com/MrDavlatovdev",
+              "https://t.me/MrDavlatovdev",
+              "https://instagram.com/da.vlatov3061"
+            ]
+          }
+        ]
+      }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Instrument+Sans:wght@400..700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Instrument+Sans:wght@400..700&display=swap" /></noscript>
     <script>
       (function () {
         try {
@@ -19,6 +94,8 @@
             ? saved
             : (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark')
           document.documentElement.dataset.theme = theme
+          var lang = localStorage.getItem('portfolio-lang')
+          if (lang === 'uz' || lang === 'ru') document.documentElement.lang = lang
         } catch (e) {}
       })()
     </script>

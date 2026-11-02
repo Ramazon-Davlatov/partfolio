@@ -1,101 +1,94 @@
-import { motion } from 'framer-motion'
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
+import { motion, useScroll, useSpring } from 'framer-motion'
 import { useLanguage } from '../context/LanguageContext'
+import SectionHead from '../components/SectionHead'
+import { Reveal, CountUp, EASE } from '../components/Motion'
 
-const STAT_VALUES = [1, 6, 9]
-
-function Counter({ value }) {
+function Timeline({ title, items }) {
   const ref = useRef(null)
-  const [count, setCount] = useState(0)
-  const [started, setStarted] = useState(false)
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !started) {
-          setStarted(true)
-          const duration = 1000
-          const start = performance.now()
-          const tick = (now) => {
-            const p = Math.min((now - start) / duration, 1)
-            setCount(Math.floor(p * value))
-            if (p < 1) requestAnimationFrame(tick)
-          }
-          requestAnimationFrame(tick)
-        }
-      },
-      { threshold: 0.6 }
-    )
-    obs.observe(el)
-    return () => obs.disconnect()
-  }, [started, value])
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 75%', 'end 55%'] })
+  const fill = useSpring(scrollYProgress, { stiffness: 90, damping: 22 })
 
   return (
-    <span ref={ref} className="font-display text-4xl font-semibold text-gradient md:text-5xl">
-      {count}+
-    </span>
+    <div>
+      <h3 className="text-sm font-semibold text-muted">{title}</h3>
+      <ol ref={ref} className="relative mt-6">
+        {/* track + the glowing line that fills as you scroll */}
+        <span className="absolute bottom-5 left-[1.25rem] top-5 w-px bg-line-strong" aria-hidden="true" />
+        <motion.span
+          style={{ scaleY: fill }}
+          className="absolute bottom-5 left-[calc(1.25rem-1px)] top-5 w-[3px] origin-top rounded-full bg-gradient-to-b from-accent via-lapis to-saffron shadow-[0_0_14px_var(--color-accent)]"
+          aria-hidden="true"
+        />
+        {items.map((item, i) => {
+          const last = i === items.length - 1
+          return (
+            <motion.li
+              key={item.title}
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.8, delay: i * 0.12, ease: EASE }}
+              className="relative grid grid-cols-[2.5rem_1fr] gap-4 pb-10 last:pb-0"
+            >
+              <span
+                className={`relative z-10 grid h-10 w-10 place-items-center rounded-full font-display text-sm font-bold ${
+                  last
+                    ? 'bg-saffron text-[#0a0f2e] shadow-[0_0_0_6px_color-mix(in_oklab,var(--color-saffron)_20%,transparent)]'
+                    : 'border border-line-strong bg-bg text-muted'
+                }`}
+              >
+                {i + 1}
+                {last && <span className="absolute inset-0 animate-ping rounded-full bg-saffron/40" aria-hidden="true" />}
+              </span>
+              <div className="pt-1.5">
+                <p className="text-sm font-semibold text-accent">{item.year}</p>
+                <h4 className="mt-1 font-display text-xl font-semibold tracking-tight">{item.title}</h4>
+                <p className="mt-2 text-muted">{item.text}</p>
+              </div>
+            </motion.li>
+          )
+        })}
+      </ol>
+    </div>
   )
 }
 
 export default function About() {
   const { t } = useLanguage()
-  const STATS = t.about.stats.map((s, i) => ({ ...s, value: STAT_VALUES[i] }))
-  const TIMELINE = t.about.timeline
+  const a = t.about
 
   return (
-    <section id="about" className="relative px-6 py-28 md:px-12">
+    <section id="about" className="px-5 py-24 md:px-10 md:py-32">
       <div className="mx-auto max-w-6xl">
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="font-mono text-sm text-green"
-        >
-          {t.about.eyebrow}
-        </motion.p>
+        <SectionHead title={a.title} />
 
-        <div className="mt-6 grid gap-16 md:grid-cols-2">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="font-display text-3xl font-semibold md:text-4xl">
-              {t.about.title}
-            </h2>
-            <p className="mt-6 text-muted">{t.about.p1}</p>
-            <p className="mt-4 text-muted">{t.about.p2}</p>
+        <div className="mt-14 grid gap-16 lg:grid-cols-[1.1fr_1fr] lg:gap-20">
+          <div>
+            <Reveal as="p" className="max-w-[36rem] text-lg leading-relaxed md:text-xl">
+              {a.p1}
+            </Reveal>
+            <Reveal as="p" delay={0.1} className="mt-5 max-w-[36rem] leading-relaxed text-muted">
+              {a.p2}
+            </Reveal>
 
-            <div className="mt-10 grid grid-cols-3 gap-6">
-              {STATS.map((s) => (
-                <div key={s.label}>
-                  <Counter value={s.value} />
-                  <p className="mt-1 text-xs text-muted">{s.label}</p>
-                </div>
+            <dl className="mt-12 grid grid-cols-3 gap-3">
+              {a.stats.map((s, i) => (
+                <Reveal
+                  key={s.label}
+                  delay={0.1 + i * 0.1}
+                  className="panel flex flex-col-reverse rounded-3xl px-4 py-6 sm:px-6"
+                >
+                  <dt className="mt-1 text-xs text-muted sm:text-sm">{s.label}</dt>
+                  <dd className="font-display text-4xl font-bold tracking-tight md:text-5xl">
+                    <CountUp value={s.value} />
+                  </dd>
+                </Reveal>
               ))}
-            </div>
-          </motion.div>
-
-          <div className="relative flex flex-col gap-8 border-l border-line pl-8">
-            {TIMELINE.map((item, i) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="relative"
-              >
-                <span className="absolute -left-[2.6rem] top-1 h-3 w-3 rounded-full border-2 border-green bg-bg" />
-                <p className="font-mono text-xs text-green">{item.year}</p>
-                <h3 className="mt-1 font-display text-lg font-medium">{item.title}</h3>
-                <p className="mt-1 text-sm text-muted">{item.text}</p>
-              </motion.div>
-            ))}
+            </dl>
           </div>
+
+          <Timeline title={a.pathTitle} items={a.timeline} />
         </div>
       </div>
     </section>
