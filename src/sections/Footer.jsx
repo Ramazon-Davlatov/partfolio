@@ -3,6 +3,8 @@ import { FaGithub, FaTelegramPlane, FaInstagram } from 'react-icons/fa'
 import { useLanguage } from '../context/LanguageContext'
 import { StarMark } from '../components/Navbar'
 import { LINKS } from '../links'
+import { SplitText, Magnetic } from '../components/Motion'
+import Rosette from '../components/Rosette'
 
 export default function Footer() {
   const { t } = useLanguage()
@@ -15,16 +17,22 @@ export default function Footer() {
           href={LINKS.telegram}
           target="_blank"
           rel="noreferrer"
-          className="group block rounded-[40px] bg-lapis px-7 py-12 text-white transition-transform duration-500 hover:-translate-y-1 md:px-14 md:py-16"
+          className="group relative block overflow-hidden rounded-[40px] bg-lapis px-7 py-12 text-white md:px-14 md:py-20"
         >
-          <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+          {/* a big, slowly turning girih star sits behind the call to action */}
+          <div className="pointer-events-none absolute -right-24 -top-24 w-[420px] opacity-40 mix-blend-screen md:-right-16 md:w-[520px]" aria-hidden="true">
+            <Rosette />
+          </div>
+          <div className="relative flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
             <p className="text-[clamp(2.6rem,8vw,6.5rem)] font-display font-bold leading-[0.95] tracking-[-0.045em]">
-              {t.footer.cta}
+              <SplitText text={t.footer.cta} stagger={0.08} />
             </p>
-            <span className="inline-flex items-center gap-3 self-start rounded-full bg-white px-6 py-3.5 text-base font-semibold text-[#0a0f2e] md:self-auto">
+            <Magnetic className="self-start md:self-auto">
+            <span className="inline-flex items-center gap-3 rounded-full bg-white px-6 py-3.5 text-base font-semibold text-[#0a0f2e] shadow-2xl transition-transform group-hover:scale-105">
               <FaTelegramPlane /> {t.footer.ctaLink}
               <ArrowUpRight size={18} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </span>
+            </Magnetic>
           </div>
         </a>
 

@@ -28,12 +28,13 @@ function Band({ items, reverse, className }) {
 /* Two crossing ribbons of tech and services, scrolling in opposite directions. */
 export default function Marquee() {
   return (
-    <div className="relative -my-6 overflow-hidden py-16" aria-hidden="true">
-      <div className="-mx-[5vw] rotate-[-3deg]">
-        <Band items={ROW_A} className="bg-lapis text-white shadow-[0_20px_60px_-20px_var(--color-lapis)]" />
-      </div>
-      <div className="-mx-[5vw] -mt-[72px] rotate-[2.5deg] md:-mt-[92px]">
+    <div className="relative -my-6 overflow-hidden py-20" aria-hidden="true">
+      {/* two ribbons tilted against each other, scrolling in opposite directions */}
+      <div className="-mx-[5vw] rotate-[1deg]">
         <Band items={ROW_B} reverse className="border-y border-line bg-bg-2/90 text-text backdrop-blur" />
+      </div>
+      <div className="relative z-10 -mx-[5vw] mt-2 rotate-[-1deg]">
+        <Band items={ROW_A} className="bg-lapis text-white shadow-[0_20px_60px_-20px_var(--color-lapis)]" />
       </div>
     </div>
   )
