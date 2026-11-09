@@ -15,7 +15,12 @@ export default async function handler(req, res) {
     return res.status(500).json({ ok: false, error: 'Server is not configured' })
   }
 
-  const body = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : req.body || {}
+  let body
+  try {
+    body = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : req.body || {}
+  } catch {
+    return res.status(400).json({ ok: false, error: 'Invalid JSON' })
+  }
   const name = clean(body.name, 100)
   const email = clean(body.email, 200)
   const subject = clean(body.subject, 200)
@@ -34,9 +39,15 @@ export default async function handler(req, res) {
       body: JSON.stringify({ chat_id: CHAT_ID, text }),
     })
     const data = await tg.json()
-    if (!data.ok) return res.status(502).json({ ok: false })
+    if (!data.ok) {
+      // e.g. "Unauthorized" (wrong BOT_TOKEN) or "Bad Request: chat not found" (wrong CHAT_ID,
+      // or you never pressed /start in your bot). Contains no secrets.
+      console.error('contact: Telegram rejected the message:', data.description)
+      return res.status(502).json({ ok: false, error: `Telegram: ${data.description}` })
+    }
     return res.status(200).json({ ok: true })
-  } catch {
-    return res.status(502).json({ ok: false })
+  } catch (err) {
+    console.error('contact: could not reach Telegram:', err?.message)
+    return res.status(502).json({ ok: false, error: 'Telegram unreachable' })
   }
 }

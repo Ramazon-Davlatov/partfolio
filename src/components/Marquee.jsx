@@ -1,7 +1,7 @@
 import { StarMark } from './Navbar'
+import { useLanguage } from '../context/LanguageContext'
 
 const ROW_A = ['React', 'JavaScript', 'Tailwind CSS', 'Framer Motion', 'Responsive', 'Vite']
-const ROW_B = ['Landing sahifalar', 'Portfolio', 'Animatsiya', 'UI dizayn', 'API', 'Telegram bot']
 
 function Band({ items, reverse, className }) {
   const loop = [...items, ...items]
@@ -27,11 +27,12 @@ function Band({ items, reverse, className }) {
 
 /* Two crossing ribbons of tech and services, scrolling in opposite directions. */
 export default function Marquee() {
+  const { t } = useLanguage()
   return (
     <div className="relative -my-6 overflow-hidden py-20" aria-hidden="true">
       {/* two ribbons tilted against each other, scrolling in opposite directions */}
       <div className="-mx-[5vw] rotate-[1deg]">
-        <Band items={ROW_B} reverse className="border-y border-line bg-bg-2/90 text-text backdrop-blur" />
+        <Band items={t.marquee} reverse className="border-y border-line bg-bg-2/90 text-text backdrop-blur" />
       </div>
       <div className="relative z-10 -mx-[5vw] mt-2 rotate-[-1deg]">
         <Band items={ROW_A} className="bg-lapis text-white shadow-[0_20px_60px_-20px_var(--color-lapis)]" />

@@ -32,6 +32,54 @@ export const translations = {
         { name: 'Stil va harakat', note: "Ko'rinish, moslashuvchanlik va jonli o'tishlar" },
         { name: 'Ish jarayoni', note: 'Kodni tartibli saqlash va tez yetkazish' },
       ],
+      hint: "Batafsil ma'lumot uchun istalgan ko'nikmani bosing",
+      whatTitle: 'Bu nima?',
+      useTitle: 'Men u bilan nima qilaman',
+      close: 'Yopish',
+      prev: 'Oldingi',
+      next: 'Keyingi',
+      details: {
+        HTML: {
+          what: "HTML — veb-sahifaning skeleti. Sarlavha, matn, rasm, tugma, forma — sahifadagi har bir element HTML teglari bilan yoziladi.",
+          use: ["Semantik va toza tuzilma yozaman (header, main, section)", "SEO va qidiruv tizimlari uchun to'g'ri teglar qo'yaman", "Ekran o'quvchilar uchun qulay (accessibility) qilaman"],
+        },
+        CSS: {
+          what: "CSS — sahifaning tashqi ko'rinishi: ranglar, shriftlar, joylashuv, soyalar va animatsiyalar.",
+          use: ['Flexbox va Grid bilan murakkab maketlar quraman', "CSS o'zgaruvchilari bilan yorug' / qorong'i mavzu yasayman", "Silliq o'tishlar va animatsiyalar qo'shaman"],
+        },
+        JavaScript: {
+          what: "JavaScript — sahifani jonlantiruvchi dasturlash tili. Tugma bosilganda, forma yuborilganda yoki ma'lumot kelganda nima bo'lishini u boshqaradi.",
+          use: ["Foydalanuvchi harakatlariga javob beradigan interaktiv qismlar yozaman", "API'dan ma'lumot olib sahifaga chiqaraman", 'Formalarni tekshiraman va yuboraman'],
+        },
+        React: {
+          what: "React — Meta tomonidan yaratilgan kutubxona. Interfeysni qayta ishlatiladigan komponentlarga bo'lib quradi va sahifani tez yangilaydi.",
+          use: ["Sahifani mustaqil komponentlarga bo'lib yozaman", 'useState, useEffect va Context bilan holatni boshqaraman', "Ikki tilli va mavzu almashadigan saytlar qilaman (shu portfolio kabi)"],
+        },
+        'Tailwind CSS': {
+          what: "Tailwind CSS — tayyor utility-klasslar to'plami. Stilni alohida faylga yozmasdan, to'g'ridan-to'g'ri HTML ichida tez beriladi.",
+          use: ['Dizaynni tez va bir xil uslubda yig\'aman', 'Har qanday ekran uchun moslashuvchan qilaman (sm, md, lg)', "O'z ranglar va shriftlar tizimini sozlayman"],
+        },
+        'Framer Motion': {
+          what: "Framer Motion — React uchun animatsiya kutubxonasi. Elementlarning paydo bo'lishi, harakati va o'tishlarini oson va silliq qiladi.",
+          use: ["Skroll qilganda chiqib keladigan bloklar yasayman", "Kursorga ergashadigan va 'magnit' effektlar qo'shaman", "Sahifa va oynalar o'rtasida silliq o'tishlar qilaman"],
+        },
+        Responsive: {
+          what: "Responsive dizayn — sayt telefon, planshet va kompyuterda birdek chiroyli va qulay ko'rinishi.",
+          use: ['Avval mobil versiyadan boshlab loyihalayman', "Har bir ekran o'lchamida tekshiraman", "Tugma va matnlarni barmoq bilan bosishga qulay qilaman"],
+        },
+        Git: {
+          what: "Git — kod versiyalarini boshqarish tizimi. Har bir o'zgarish saqlanadi, kerak bo'lsa oldingi holatga qaytish mumkin.",
+          use: ["Har bir o'zgarishni aniq commit bilan saqlayman", "Yangi funksiyalarni alohida branch'da qilaman", "Xato chiqsa oldingi versiyaga tez qaytaman"],
+        },
+        GitHub: {
+          what: "GitHub — Git loyihalarini internetda saqlash va boshqalar bilan birga ishlash platformasi.",
+          use: ['Barcha loyihalarimni shu yerda saqlayman', "Pull request orqali kodni ko'rib chiqaman", 'Vercel bilan ulab, saytni avtomatik chiqaraman'],
+        },
+        Vite: {
+          what: "Vite — zamonaviy frontend yig'ish vositasi. Loyihani bir zumda ishga tushiradi va production uchun yengil fayllar tayyorlaydi.",
+          use: ["Yangi loyihani soniyalar ichida boshlayman", "O'zgarishlarni sahifani yangilamasdan darhol ko'raman (HMR)", "Saytni tez yuklanadigan qilib build qilaman"],
+        },
+      },
     },
     services: {
       title: 'Siz uchun nima qura olaman',
@@ -43,7 +91,16 @@ export const translations = {
         { title: 'Animatsiya', text: "Skroll effektlari, mikro-animatsiyalar va silliq sahifa o'tishlari." },
         { title: 'API integratsiyasi', text: "Saytni haqiqiy ma'lumotlarga ulash: REST API, Telegram botlar va tashqi xizmatlar." },
       ],
+      hint: "Xizmatni bosing — ichida jonli namuna saytlarni ko'rasiz",
+      demosTitle: 'Jonli namunalar',
+      live: 'Jonli',
+      order: 'Shunday sayt buyurtma qilish',
+      close: 'Yopish',
+      prev: 'Oldingi namuna',
+      next: 'Keyingi namuna',
+      loading: 'Yuklanmoqda...',
     },
+    marquee: ['Landing sahifalar', 'Portfolio', 'Animatsiya', 'UI dizayn', 'API', 'Telegram bot'],
     projects: {
       title: 'Tanlangan ishlar',
       live: "Ochish",
@@ -59,6 +116,7 @@ export const translations = {
       desc: "AI vositalari men uchun tezlatgich, yorliq emas. Ular tezroq o'rganishga va toza kod yozishga yordam beradi, lekin qarorlar va xatolarni tuzatish doim menda.",
       scan: "Telegram'da bog'lanish uchun skanerlang",
       featured: 'Asosiy sherigim',
+      visit: 'Saytga o‘tish',
       flowTitle: 'Mening tartibim',
       flow: [
         { title: "Avval o'zim o'ylayman", text: 'Vazifani tushunaman va yechimni rejalashtiraman.' },
@@ -127,6 +185,54 @@ export const translations = {
         { name: 'Стиль и движение', note: 'Внешний вид, адаптивность и живые переходы' },
         { name: 'Рабочий процесс', note: 'Порядок в коде и быстрая доставка' },
       ],
+      hint: 'Нажмите на любой навык, чтобы узнать подробнее',
+      whatTitle: 'Что это?',
+      useTitle: 'Что я с этим делаю',
+      close: 'Закрыть',
+      prev: 'Предыдущий',
+      next: 'Следующий',
+      details: {
+        HTML: {
+          what: 'HTML — скелет веб-страницы. Заголовки, текст, картинки, кнопки, формы — каждый элемент страницы описывается тегами HTML.',
+          use: ['Пишу семантичную и чистую разметку (header, main, section)', 'Расставляю правильные теги для SEO', 'Делаю страницы доступными для скринридеров'],
+        },
+        CSS: {
+          what: 'CSS — внешний вид страницы: цвета, шрифты, расположение, тени и анимации.',
+          use: ['Строю сложные макеты на Flexbox и Grid', 'Делаю светлую / тёмную тему на CSS-переменных', 'Добавляю плавные переходы и анимации'],
+        },
+        JavaScript: {
+          what: 'JavaScript — язык программирования, который оживляет страницу. Он решает, что происходит при клике, отправке формы или получении данных.',
+          use: ['Пишу интерактивные элементы, реагирующие на действия пользователя', 'Получаю данные из API и вывожу их на страницу', 'Проверяю и отправляю формы'],
+        },
+        React: {
+          what: 'React — библиотека от Meta. Строит интерфейс из переиспользуемых компонентов и быстро обновляет страницу.',
+          use: ['Разбиваю страницу на независимые компоненты', 'Управляю состоянием через useState, useEffect и Context', 'Делаю двуязычные сайты со сменой темы (как это портфолио)'],
+        },
+        'Tailwind CSS': {
+          what: 'Tailwind CSS — набор готовых utility-классов. Стили задаются прямо в разметке, без отдельных CSS-файлов.',
+          use: ['Быстро собираю дизайн в едином стиле', 'Делаю адаптив под любые экраны (sm, md, lg)', 'Настраиваю свою систему цветов и шрифтов'],
+        },
+        'Framer Motion': {
+          what: 'Framer Motion — библиотека анимаций для React. Делает появление, движение и переходы элементов простыми и плавными.',
+          use: ['Делаю блоки, появляющиеся при прокрутке', 'Добавляю эффекты следования за курсором и «магнитные» кнопки', 'Создаю плавные переходы между окнами'],
+        },
+        Responsive: {
+          what: 'Адаптивный дизайн — сайт одинаково красив и удобен на телефоне, планшете и компьютере.',
+          use: ['Проектирую, начиная с мобильной версии', 'Проверяю на каждом размере экрана', 'Делаю кнопки и текст удобными для пальцев'],
+        },
+        Git: {
+          what: 'Git — система контроля версий. Каждое изменение сохраняется, и всегда можно вернуться назад.',
+          use: ['Сохраняю каждое изменение понятным коммитом', 'Делаю новые функции в отдельных ветках', 'Быстро откатываюсь, если что-то сломалось'],
+        },
+        GitHub: {
+          what: 'GitHub — платформа для хранения Git-проектов в интернете и совместной работы.',
+          use: ['Храню здесь все свои проекты', 'Проверяю код через pull request', 'Подключаю к Vercel для автоматического деплоя'],
+        },
+        Vite: {
+          what: 'Vite — современный сборщик фронтенда. Мгновенно запускает проект и готовит лёгкие файлы для продакшена.',
+          use: ['Запускаю новый проект за секунды', 'Вижу изменения сразу, без перезагрузки (HMR)', 'Собираю быстрый сайт для продакшена'],
+        },
+      },
     },
     services: {
       title: 'Что я могу сделать для вас',
@@ -138,7 +244,16 @@ export const translations = {
         { title: 'Анимация', text: 'Скролл-эффекты, микроанимации и плавные переходы между страницами.' },
         { title: 'Интеграция API', text: 'Подключение сайта к реальным данным: REST API, Telegram-боты и внешние сервисы.' },
       ],
+      hint: 'Нажмите на услугу — внутри живые примеры сайтов',
+      demosTitle: 'Живые примеры',
+      live: 'Живой',
+      order: 'Заказать такой сайт',
+      close: 'Закрыть',
+      prev: 'Предыдущий пример',
+      next: 'Следующий пример',
+      loading: 'Загрузка...',
     },
+    marquee: ['Лендинги', 'Портфолио', 'Анимация', 'UI-дизайн', 'API', 'Telegram-боты'],
     projects: {
       title: 'Избранные работы',
       live: 'Открыть',
@@ -154,6 +269,7 @@ export const translations = {
       desc: 'ИИ-инструменты для меня — ускоритель, а не обходной путь. Они помогают учиться быстрее и писать чище, но решения и отладка всегда остаются за мной.',
       scan: 'Отсканируйте, чтобы написать в Telegram',
       featured: 'Главный партнёр',
+      visit: 'Перейти на сайт',
       flowTitle: 'Мой порядок работы',
       flow: [
         { title: 'Сначала думаю сам', text: 'Разбираюсь в задаче и планирую решение.' },

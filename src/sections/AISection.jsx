@@ -13,13 +13,15 @@ const QR_URL =
 
 // Brand marks, keyed by tool name in translations.
 const BRAND = {
-  Claude: { icon: SiClaude, color: '#d97757' },
-  ChatGPT: { icon: RiOpenaiFill, color: 'var(--color-text)' },
-  Gemini: { icon: SiGooglegemini, color: '#6f8cff' },
-  DeepSeek: { icon: SiDeepseek, color: '#4d6bfe' },
-  Grok: { icon: SiX, color: 'var(--color-text)' },
-  Copilot: { icon: SiGithubcopilot, color: '#a78bfa' },
+  Claude: { icon: SiClaude, color: '#d97757', url: 'https://claude.ai' },
+  ChatGPT: { icon: RiOpenaiFill, color: 'var(--color-text)', url: 'https://chatgpt.com' },
+  Gemini: { icon: SiGooglegemini, color: '#6f8cff', url: 'https://gemini.google.com' },
+  DeepSeek: { icon: SiDeepseek, color: '#4d6bfe', url: 'https://chat.deepseek.com' },
+  Grok: { icon: SiX, color: 'var(--color-text)', url: 'https://grok.com' },
+  Copilot: { icon: SiGithubcopilot, color: '#a78bfa', url: 'https://github.com/features/copilot' },
 }
+
+const host = (url) => url.replace(/^https?:\/\//, '').replace(/\/.*$/, '')
 
 function Mark({ name, size = 'md' }) {
   const b = BRAND[name]
@@ -77,6 +79,18 @@ export default function AISection() {
                   {main.name} <span className="text-lg font-medium text-muted">{main.by}</span>
                 </h3>
                 <p className="mt-2 max-w-md text-muted">{main.text}</p>
+                {BRAND[main.name]?.url && (
+                  <a
+                    href={BRAND[main.name].url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="group mt-4 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
+                    style={{ background: '#d97757' }}
+                  >
+                    {t.ai.visit} · {host(BRAND[main.name].url)}
+                    <ArrowUpRight size={16} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                  </a>
+                )}
               </div>
             </div>
 
@@ -132,14 +146,30 @@ export default function AISection() {
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true, margin: '-60px' }}
               transition={{ duration: 0.7, delay: i * 0.08, ease: EASE }}
-              className="panel group flex flex-col rounded-[28px] p-5 last:col-span-2 hover:border-line-strong sm:p-6 lg:last:col-span-1"
+              className="panel group rounded-[28px] last:col-span-2 hover:border-line-strong lg:last:col-span-1"
             >
-              <span className="inline-block transition-transform duration-500 group-hover:-translate-y-1 group-hover:rotate-[-8deg] group-hover:scale-110">
-                <Mark name={tool.name} />
-              </span>
-              <h3 className="mt-5 font-display text-lg font-semibold tracking-tight">{tool.name}</h3>
-              <p className="text-xs font-medium text-muted">{tool.by}</p>
-              <p className="mt-3 text-sm text-muted">{tool.text}</p>
+              <a
+                href={BRAND[tool.name]?.url}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`${tool.name} — ${t.ai.visit}`}
+                className="flex h-full flex-col rounded-[inherit] p-5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-saffron sm:p-6"
+              >
+                <div className="flex items-start justify-between">
+                  <span className="inline-block transition-transform duration-500 group-hover:-translate-y-1 group-hover:rotate-[-8deg] group-hover:scale-110">
+                    <Mark name={tool.name} />
+                  </span>
+                  <ArrowUpRight size={18} className="text-muted transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-text" />
+                </div>
+                <h3 className="mt-5 font-display text-lg font-semibold tracking-tight">{tool.name}</h3>
+                <p className="text-xs font-medium text-muted">{tool.by}</p>
+                <p className="mt-3 flex-1 text-sm text-muted">{tool.text}</p>
+                {BRAND[tool.name]?.url && (
+                  <span className="mt-4 truncate text-xs font-semibold text-accent group-hover:underline">
+                    {host(BRAND[tool.name].url)}
+                  </span>
+                )}
+              </a>
             </motion.li>
           ))}
         </ul>

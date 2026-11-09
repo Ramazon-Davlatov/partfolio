@@ -55,10 +55,15 @@ export default function Contact() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...form, subject: c.topics[topic] }),
       })
-      if (!res.ok) throw new Error('Request failed')
+      if (!res.ok) {
+        const detail = await res.json().catch(() => ({}))
+        throw new Error(`${res.status} ${detail.error || 'Request failed'}`)
+      }
       setStatus('success')
       setForm(EMPTY)
-    } catch {
+    } catch (err) {
+      // the visitor sees a friendly message; the real reason goes to the browser console
+      console.error('Contact form:', err.message)
       setError(c.errSend)
       setStatus('error')
     }
